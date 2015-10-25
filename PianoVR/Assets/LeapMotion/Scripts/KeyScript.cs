@@ -14,7 +14,7 @@ public class KeyScript : MonoBehaviour {
 	private const float HALF_STEP_RATIO = 1.05946309436f;
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
 		colliders = new HashSet<Collider>();
 		transform.localScale = transform.localScale * 0.9f;
 		transform.localScale = new Vector3(transform.localScale.x * 1.3f, transform.localScale.y, transform.localScale.z);
@@ -23,15 +23,15 @@ public class KeyScript : MonoBehaviour {
 		setColor();
 	}
 	
-	void setNode() {
+	public void setNote() {
 		setBlue();
 	}
 	
-	int getRealPitch() {
+	private int getRealPitch() {
 		return pitch + 12*Convert.ToInt32(transform.parent.gameObject.name,10);
 	}
 	
-	void setColor(float r, float g, float b)
+	private void setColor(float r, float g, float b)
 	{
 		Color color = new Color(r,g,b,1);
 		
@@ -43,23 +43,23 @@ public class KeyScript : MonoBehaviour {
 		gameObjectRenderer.material = newMaterial ;
 	}
 	
-	void setBlack() {
+	private void setBlack() {
 		setColor(0.1f, 0.1f, 0.1f);
 	}
 	
-	void setWhite() {
+	private void setWhite() {
 		setColor(0.9f, 0.9f, 0.9f);
 	}
 	
-	void setRed() {
+	private void setRed() {
 		setColor(0.8f, 0.1f, 0.1f);
 	}
 	
-	void setBlue() {
+	private void setBlue() {
 		setColor(0.1f, 0.1f, 0.8f);
 	}
 	
-	bool isBlackKey()
+	private bool isBlackKey()
 	{
 		sound.pitch = Mathf.Pow(HALF_STEP_RATIO, getRealPitch());
 		int pitchMod = pitch % 12;
@@ -79,7 +79,7 @@ public class KeyScript : MonoBehaviour {
 	}
 	
 	
-	void setColor() {
+	private void setColor() {
 		if (isBlackKey())
 			setBlack();
 		else
@@ -87,11 +87,11 @@ public class KeyScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
 		//setColor();
 	}
 	
-	void removeColliding(Collider other)
+	private void removeColliding(Collider other)
 	{
 		colliders.Remove(other);
 		if (playing && colliders.Count == 0)
@@ -103,7 +103,7 @@ public class KeyScript : MonoBehaviour {
 		}
 	}
 	
-	void OnTriggerStay(Collider other)
+	private void OnTriggerStay(Collider other)
 	{
 		// print(other.gameObject.name);
 		if (other.gameObject.name == "bone3")
@@ -125,7 +125,7 @@ public class KeyScript : MonoBehaviour {
 		}
 	}
 	
-	void OnTriggerExit(Collider other)
+	private void OnTriggerExit(Collider other)
 	{
 		removeColliding(other);
 	}
