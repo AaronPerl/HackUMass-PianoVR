@@ -23,41 +23,40 @@ public class KeyScript : MonoBehaviour {
 		setColor();
 	}
 	
+	void setNode() {
+		setBlue();
+	}
+	
 	int getRealPitch() {
 		return pitch + 12*Convert.ToInt32(transform.parent.gameObject.name,10);
 	}
 	
-	void setBlack() {
-		Color black = new Color(0.1f,0.1f,0.1f,1);
+	void setColor(float r, float g, float b)
+	{
+		Color color = new Color(r,g,b,1);
 		
 		MeshRenderer gameObjectRenderer = gameObject.GetComponent<MeshRenderer>();
 		 
 		Material newMaterial = new Material(Shader.Find("Standard"));
 		 
-		newMaterial.color = black;
+		newMaterial.color = color;
 		gameObjectRenderer.material = newMaterial ;
+	}
+	
+	void setBlack() {
+		setColor(0.1f, 0.1f, 0.1f);
 	}
 	
 	void setWhite() {
-		Color white = new Color(0.9f,0.9f,0.9f,1);
-		
-		MeshRenderer gameObjectRenderer = gameObject.GetComponent<MeshRenderer>();
-		 
-		Material newMaterial = new Material(Shader.Find("Standard"));
-		 
-		newMaterial.color = white;
-		gameObjectRenderer.material = newMaterial ;
+		setColor(0.9f, 0.9f, 0.9f);
 	}
 	
 	void setRed() {
-		Color red = new Color(0.8f,0.1f,0.1f,1);
-		
-		MeshRenderer gameObjectRenderer = gameObject.GetComponent<MeshRenderer>();
-		 
-		Material newMaterial = new Material(Shader.Find("Standard"));
-		 
-		newMaterial.color = red;
-		gameObjectRenderer.material = newMaterial ;
+		setColor(0.8f, 0.1f, 0.1f);
+	}
+	
+	void setBlue() {
+		setColor(0.1f, 0.1f, 0.8f);
 	}
 	
 	bool isBlackKey()
