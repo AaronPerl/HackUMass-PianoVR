@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,9 +16,15 @@ public class KeyScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		colliders = new HashSet<Collider>();
-		transform.localScale = transform.localScale * 1.8f;
-		transform.position = transform.position * 2;
+		transform.localScale = transform.localScale * 0.9f;
+		transform.localScale = new Vector3(transform.localScale.x * 1.3f, transform.localScale.y, transform.localScale.z);
+		transform.position = transform.position * 1.0f;
+		transform.position = new Vector3(transform.position.x * 1.3f, transform.position.y, transform.position.z);
 		setColor();
+	}
+	
+	int getRealPitch() {
+		return pitch + 12*Convert.ToInt32(transform.parent.gameObject.name,10);
 	}
 	
 	void setBlack() {
@@ -55,7 +62,7 @@ public class KeyScript : MonoBehaviour {
 	
 	bool isBlackKey()
 	{
-		sound.pitch = Mathf.Pow(HALF_STEP_RATIO, pitch);
+		sound.pitch = Mathf.Pow(HALF_STEP_RATIO, getRealPitch());
 		int pitchMod = pitch % 12;
 		if (pitchMod < 0)
 			pitchMod = pitchMod + 12;
@@ -102,7 +109,8 @@ public class KeyScript : MonoBehaviour {
 		// print(other.gameObject.name);
 		if (other.gameObject.name == "bone3")
 		{
-			if ((Mathf.Abs(other.gameObject.transform.position.x - transform.position.x) < 0.025) && (other.gameObject.transform.position.z+0.025 < transform.position.z))
+			if ((Mathf.Abs(other.gameObject.transform.position.x - transform.position.x) < 0.0125) &&
+			    (isBlackKey()||(other.gameObject.transform.position.z+0.02 < transform.position.z)))
 			{
 				if (!playing)
 				{
